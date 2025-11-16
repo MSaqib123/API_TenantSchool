@@ -1,0 +1,25 @@
+﻿using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Infrastructure.Identity.Models
+{
+    public class ApplicationUser : IdentityUser
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public bool IsActive { get; set; }
+
+        //==== (JWT) json web token ======
+        // 1. Login token
+        // 2. Authentication token
+        // 3. Refresh Token 
+        public string RefreshToken { get; set; }
+        public DateTime RefreshTokenExpiryTime { get; set; }
+
+
+    }
+}
