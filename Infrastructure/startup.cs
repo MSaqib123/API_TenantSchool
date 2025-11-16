@@ -1,5 +1,6 @@
 ﻿using Finbuckle.MultiTenant;
 using Infrastructure.Tenancy;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +21,16 @@ namespace Infrastructure
                     .Services;
         }
 
-       
+
+
+
+        public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
+        {
+            return app
+                .UseMultiTenant();
+        }
+
+
+
     }
 }
