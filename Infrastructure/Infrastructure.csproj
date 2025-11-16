@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Finbuckle.MultiTenant" Version="8.1.8" />
+    <PackageReference Include="Finbuckle.MultiTenant.AspNetCore" Version="8.1.8" />
+    <PackageReference Include="Finbuckle.MultiTenant.EntityFrameworkCore" Version="8.1.8" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />
   </ItemGroup>
 
