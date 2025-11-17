@@ -1,0 +1,9 @@
+Please rune this command for running the Migrations in Infrastructure Layer
+
+1. TenantDbContext
+   add-migration InitialTenantDbContext -Context TenantDbContext
+   update-database -Context TenantDbContext
+
+2. ApplicationDbContext
+	add-migration InitialApplicationDbContext -Context ApplicationDbContext
+	update-database -Context ApplicationDbContext
