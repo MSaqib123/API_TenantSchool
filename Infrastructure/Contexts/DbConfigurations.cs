@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Contexts
 {
-    internal class DbConfigurations
+    public class DbConfigurations
     {
         internal class ApplicationUserConfig : IEntityTypeConfiguration<ApplicationUser>
         {

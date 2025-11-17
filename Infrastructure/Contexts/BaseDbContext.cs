@@ -91,5 +91,17 @@ namespace Infrastructure.Contexts
          
          */
 
+
+
+        //================== Renaming Identity Tables and Applying Configurations ==================
+        // this method renames the default Identity tables and applies entity configurations from the assembly.
+        // if we don't override this method, the default table names will be used.
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+        }
+
     }
 }
