@@ -19,9 +19,30 @@ namespace Infrastructure.Contexts
             ApplicationRoleClaim,
             IdentityUserToken<string>>
     {
+
+        private new ABCSchoolTenantInfo TenantInfo { get; set; }
+
         protected BaseDbContext(IMultiTenantContextAccessor<ABCSchoolTenantInfo> tenantInfoContextAccessor, DbContextOptions options)
             : base(tenantInfoContextAccessor, options)
         {
+            TenantInfo = tenantInfoContextAccessor.MultiTenantContext.TenantInfo;
+
         }
+
+
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+
+            if (!string.IsNullOrEmpty(TenantInfo?.ConnectionString))
+            {
+                optionsBuilder.UseSqlServer(TenantInfo.ConnectionString, options =>
+                {
+                    options.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName);
+                });
+            }
+        }
+
     }
 }
