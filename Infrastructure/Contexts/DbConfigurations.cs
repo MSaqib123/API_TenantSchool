@@ -73,6 +73,38 @@ namespace Infrastructure.Contexts
                     .IsMultiTenant();
         }
 
+
+
+        /*
+            ApplyConfigurationsFromAssembly kya karta hai?
+
+            Entity Framework ko manually batane ki zaroorat nahi padti:
+
+            modelBuilder.ApplyConfiguration(new SchoolConfig());
+            modelBuilder.ApplyConfiguration(new ApplicationUserConfig());
+            modelBuilder.ApplyConfiguration(new RoleConfig());
+
+
+            Iski jagah aap simply likhte ho:
+
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            Yeh EF Core ko bolne jaisa hai:
+            👉 "Bhai, is poori assembly (project) mein jitni bhi IEntityTypeConfiguration wali classes hain, sab apply kar do."
+
+            Iska matlab:
+
+            EF automatically SchoolConfig,
+            ApplicationUserConfig,
+            ApplicationRoleConfig,
+            IdentityUserRoleConfig,
+            waqaira... sab pick karke apply kar deta hai.
+
+            Tumhe har config manually apply nahi karni padti.
+            Bas ek line — sab kaam ho gaya. 
+        */
+
+
         internal class SchoolConfig : IEntityTypeConfiguration<School>
         {
             public void Configure(EntityTypeBuilder<School> builder)
