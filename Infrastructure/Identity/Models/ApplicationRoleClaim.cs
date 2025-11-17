@@ -2,6 +2,7 @@
 
 namespace Infrastructure.Identity.Models
 {
+    // Modifing the IdentityRoleClaim to include additional properties
     public class ApplicationRoleClaim : IdentityRoleClaim<string>
     {
         // RolesClaim is wn as "permissions" in the system
