@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Constants
 {
+
+
+
     // School Permissions Constants
     // this is for a multi-tenant school management system
     // defining actions, features, and permissions for various roles
