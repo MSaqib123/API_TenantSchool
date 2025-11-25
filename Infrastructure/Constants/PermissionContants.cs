@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Constants
 {
+    // School Permissions Constants
+    // this is for a multi-tenant school management system
+    // defining actions, features, and permissions for various roles
     public static class SchoolAction
     {
         public const string Read = nameof(Read);
@@ -17,6 +20,8 @@ namespace Infrastructure.Constants
         public const string UpgradeSubscription = nameof(UpgradeSubscription);
     }
 
+    // Features in the school management system
+    // each feature can have multiple actions associated with it
     public static class SchoolFeature
     {
         public const string Tenants = nameof(Tenants);
@@ -28,13 +33,19 @@ namespace Infrastructure.Constants
         public const string Tokens = nameof(Tokens);
     }
 
+    // Definition of a permission in the school management system
+    // record is C# 9.0 feature for immutable data objects
+    // imutable means once created, the properties cannot be changed , and they have value-based equality
+    // this is useful for defining permissions that should not change at runtime
+    // this method generates a unique name for each permission based on its action and feature
     public record SchoolPermission(string Action, string Feature, string Description, string Group, bool IsBasic = false, bool IsRoot = false)
     {
         public string Name => NameFor(Action, Feature);
 
         public static string NameFor(string action, string feature) => $"Permission.{feature}.{action}";
     }
-
+    // Collection of all permissions in the school management system
+    // different views of the permissions are provided based on roles: All, Root, Admin, Basic
     public static class SchoolPermissions
     {
         private static readonly SchoolPermission[] _allPermissions =
@@ -68,15 +79,17 @@ namespace Infrastructure.Constants
             new SchoolPermission(SchoolAction.RefreshToken, SchoolFeature.Tokens, "Generate Refresh Token", "SystemAccess", IsBasic: true)
         ];
 
+
+        // Different views of the permissions based on roles
         public static IReadOnlyList<SchoolPermission> All { get; }
             = new ReadOnlyCollection<SchoolPermission>(_allPermissions);
-
+        // Root permissions are those that are marked as IsRoot
         public static IReadOnlyList<SchoolPermission> Root { get; }
             = new ReadOnlyCollection<SchoolPermission>(_allPermissions.Where(p => p.IsRoot).ToArray());
-
+        // Admin permissions are all except those marked as IsRoot
         public static IReadOnlyList<SchoolPermission> Admin { get; }
             = new ReadOnlyCollection<SchoolPermission>(_allPermissions.Where(p => !p.IsRoot).ToArray());
-
+        // Basic permissions are those that are marked as IsBasic
         public static IReadOnlyList<SchoolPermission> Basic { get; }
             = new ReadOnlyCollection<SchoolPermission>(_allPermissions.Where(p => p.IsBasic).ToArray());
     }
